@@ -14,6 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
         android:layout_marginLeft="16dp"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
@@ -23,6 +24,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="Uri Personagem"
+        android:textColor="@color/colorPrimaryDark"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 </android.support.constraint.ConstraintLayout>

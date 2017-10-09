@@ -46,12 +46,18 @@ public class PeopleList extends AppCompatActivity implements PeopleListViewListe
         peopleListHelper.getFabActionButton().setOnClickListener(this);
 
         onActionBar();
-        onConfigureRyclerView();
         onLoadList();
+        onConfigureRyclerView();
     }
 
     private void onLoadList() {
         list = peopleDAO.getList();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        onLoadList();
     }
 
     private void onActionBar() {
