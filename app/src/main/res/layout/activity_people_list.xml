@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.test.lastjedi.CharacterList">
+    tools:context="br.com.test.lastjedi.PeopleList">
 
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/characterListToolbar"
+        android:id="@+id/peopleToolbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
@@ -22,7 +22,7 @@
         android:layout_marginTop="0dp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/characterRecyclerView"
+        android:id="@+id/peopleRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="0dp"
@@ -31,5 +31,17 @@
         app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/characterListToolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/peopleToolbar" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:layout_marginRight="16dp"
+        app:layout_constraintRight_toRightOf="@+id/peopleRecyclerView"
+        app:layout_constraintBottom_toBottomOf="@+id/peopleRecyclerView"
+        android:layout_marginBottom="16dp" />
 </android.support.constraint.ConstraintLayout>
