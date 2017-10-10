@@ -22,11 +22,15 @@ public class PeopleListViewHolder extends RecyclerView.ViewHolder implements Vie
 
         nameTextView = (TextView)itemView.findViewById(R.id.nameTextView);
         urlTextView = (TextView) itemView.findViewById(R.id.urlTextView);
+
+        itemView.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        listener.onViewClick(v, getAdapterPosition());
+        if(listener != null) {
+            listener.onViewClick(v, getAdapterPosition());
+        }
     }
 
     public TextView getName() {

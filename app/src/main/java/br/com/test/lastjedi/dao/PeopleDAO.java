@@ -73,7 +73,6 @@ public class PeopleDAO extends SQLiteOpenHelper {
 
     private ContentValues getContentValues(People people) {
         ContentValues values = new ContentValues();
-        values.put("id", people.getId());
         values.put("url", people.getUrl());
         values.put("name", people.getName());
         values.put("height", people.getHeight());
@@ -145,9 +144,8 @@ public class PeopleDAO extends SQLiteOpenHelper {
 
     public boolean checkIfExists(People people){
         People checkPeople = getPeopleByUrl(people.getUrl());
-        if(checkPeople == null)
-            return false;
-        return true;
+        return checkPeople != null;
+
     }
 
 }

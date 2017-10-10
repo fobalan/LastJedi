@@ -3,6 +3,7 @@ package br.com.test.lastjedi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -46,18 +47,25 @@ public class PeopleList extends AppCompatActivity implements PeopleListViewListe
         peopleListHelper.getFabActionButton().setOnClickListener(this);
 
         onActionBar();
-        onLoadList();
         onConfigureRyclerView();
+        onLoadList(peopleDAO.getList());
     }
 
-    private void onLoadList() {
-        list = peopleDAO.getList();
+    private void onLoadList(List<People> peopleList) {
+        for (People people: peopleList) {
+            list.add(people);
+            adapter.notifyItemInserted(list.size() - 1);
+        }
+    }
+
+    private void onLoadList(People people) {
+        list.add(people);
+        adapter.notifyItemInserted(list.size() - 1);
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        onLoadList();
     }
 
     private void onActionBar() {
@@ -79,24 +87,37 @@ public class PeopleList extends AppCompatActivity implements PeopleListViewListe
 
     @Override
     public void onViewClick(View v, int position) {
-
+        Intent intent = new Intent(this, DetailsActivity.class);
+        startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
         if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, PERMISSION_REQUEST);
+        }else{
+            onCallScanner();
         }
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
-            IntentIntegrator integrator = new IntentIntegrator(this);
-            integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-            integrator.setPrompt("Scanneie seu Personagem");
-            integrator.setCameraId(0);  // Use a specific camera of the device
-            integrator.setBeepEnabled(false);
-            integrator.setBarcodeImageEnabled(true);
-            integrator.setOrientationLocked(false);
-            integrator.initiateScan();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == PERMISSION_REQUEST
+                && grantResults[0] == 0){
+            onCallScanner();
         }
+    }
+
+    private void onCallScanner() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
+        integrator.setPrompt("Scanneie seu Personagem");
+        integrator.setCameraId(0);  // Use a specific camera of the device
+        integrator.setBeepEnabled(false);
+        integrator.setBarcodeImageEnabled(true);
+        integrator.setOrientationLocked(false);
+        integrator.initiateScan();
     }
 
     @Override
@@ -123,12 +144,11 @@ public class PeopleList extends AppCompatActivity implements PeopleListViewListe
             @Override
             public void onResponse(Call<People> call, Response<People> response) {
                 People newPeople = response.body();
-                if(!peopleDAO.checkIfExists(newPeople)) {
-                    list.add(newPeople);
-                    adapter.notifyItemInserted(list.size() - 1);
-                    peopleDAO.insert(newPeople);
-                } else {
+                if(peopleDAO.checkIfExists(newPeople)) {
                     Toast.makeText(getApplicationContext(), "Você já possui esse porsonagem", Toast.LENGTH_SHORT).show();
+                } else {
+                    onLoadList(newPeople);
+                    peopleDAO.insert(newPeople);
                 }
                 progress.dismiss();
             }
