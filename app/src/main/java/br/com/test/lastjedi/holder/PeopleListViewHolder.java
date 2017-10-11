@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.rengwuxian.materialedittext.MaterialEditText;
+
 import br.com.test.lastjedi.R;
 import br.com.test.lastjedi.listener.PeopleListViewListener;
 
@@ -13,15 +15,15 @@ import br.com.test.lastjedi.listener.PeopleListViewListener;
  */
 
 public class PeopleListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final TextView nameTextView;
-    private final TextView urlTextView;
+    private final MaterialEditText nameEditText;
+    private final MaterialEditText urlEditText;
     private PeopleListViewListener listener;
     public PeopleListViewHolder(View itemView, PeopleListViewListener listener, Context context) {
         super(itemView);
         this.listener = listener;
 
-        nameTextView = (TextView)itemView.findViewById(R.id.nameTextView);
-        urlTextView = (TextView) itemView.findViewById(R.id.urlTextView);
+        nameEditText = (MaterialEditText)itemView.findViewById(R.id.nameEditText);
+        urlEditText = (MaterialEditText) itemView.findViewById(R.id.urlEditText);
 
         itemView.setOnClickListener(this);
     }
@@ -34,10 +36,10 @@ public class PeopleListViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     public TextView getName() {
-        return nameTextView;
+        return nameEditText;
     }
 
     public TextView getUrl() {
-        return urlTextView;
+        return urlEditText;
     }
 }

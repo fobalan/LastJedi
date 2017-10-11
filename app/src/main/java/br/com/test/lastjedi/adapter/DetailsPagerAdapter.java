@@ -1,19 +1,24 @@
 package br.com.test.lastjedi.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import br.com.test.lastjedi.fragment.DetailFragment;
 import br.com.test.lastjedi.fragment.FilmsFragment;
+import br.com.test.lastjedi.model.People;
 
 /**
  * Created by Samurai on 10/10/2017.
  */
 
 public class DetailsPagerAdapter extends FragmentPagerAdapter {
-    public DetailsPagerAdapter(FragmentManager fragmentManager) {
+
+    private People people;
+    public DetailsPagerAdapter(FragmentManager fragmentManager, People people) {
         super(fragmentManager);
+        this.people = people;
     }
 
     @Override
@@ -27,6 +32,9 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
                 fragment = new FilmsFragment();
                 break;
         }
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("people",people);
+        fragment.setArguments(bundle);
         return fragment;
     }
 

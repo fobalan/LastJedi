@@ -88,6 +88,7 @@ public class PeopleList extends AppCompatActivity implements PeopleListViewListe
     @Override
     public void onViewClick(View v, int position) {
         Intent intent = new Intent(this, DetailsActivity.class);
+        intent.putExtra("people",list.get(position));
         startActivity(intent);
     }
 

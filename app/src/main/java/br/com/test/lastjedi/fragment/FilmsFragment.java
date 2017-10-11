@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import br.com.test.lastjedi.R;
+import br.com.test.lastjedi.model.People;
 
 /**
  * Created by Samurai on 10/10/2017.
@@ -19,6 +20,7 @@ public class FilmsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_films, container, false);
+        People people = (People) getArguments().getSerializable("people");
         return rootView;
     }
 }
