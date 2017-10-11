@@ -22,14 +22,14 @@ import java.util.List;
 import br.com.test.lastjedi.adapter.PeopleListAdapter;
 import br.com.test.lastjedi.dao.PeopleDAO;
 import br.com.test.lastjedi.helper.PeopleListHelper;
-import br.com.test.lastjedi.listener.PeopleListViewListener;
+import br.com.test.lastjedi.listener.RecyclerViewListener;
 import br.com.test.lastjedi.model.People;
 import br.com.test.lastjedi.retrofit.RetrofitInitializer;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PeopleList extends AppCompatActivity implements PeopleListViewListener, View.OnClickListener {
+public class PeopleList extends AppCompatActivity implements RecyclerViewListener, View.OnClickListener {
 
     private static final int PERMISSION_REQUEST = 200;
     private PeopleListHelper peopleListHelper;

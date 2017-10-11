@@ -5,10 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.JsonWriter;
+
+import com.google.gson.Gson;
+
+import org.json.JSONStringer;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import br.com.test.lastjedi.database.DataBaseCore;
 import br.com.test.lastjedi.model.People;
 import retrofit2.http.PUT;
 
@@ -16,57 +22,27 @@ import retrofit2.http.PUT;
  * Created by Samurai on 08/10/2017.
  */
 
-public class PeopleDAO extends SQLiteOpenHelper {
+public class PeopleDAO {
 
-    public PeopleDAO(Context context) {
-        super(context, "LastJedi.sqlite", null, 1);
+    public DataBaseCore helper;
+    public PeopleDAO(Context context){
+        helper = new DataBaseCore(context);
     }
-
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-        String sql = "CREATE TABLE people (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "url TEXT," +
-                "name TEXT," +
-                "height INT," +
-                "mass INT," +
-                "hairColor TEXT," +
-                "skinColor TEXT," +
-                "eyeColor TEXT," +
-                "birthYear TEXT," +
-                "gender TEXT," +
-                "homeworld TEXT," +
-                "films TEXT," +
-                "species TEXT," +
-                "vehicles TEXT," +
-                "starships TEXT," +
-                "created TEXT," +
-                "edited TEXT)";
-        db.execSQL(sql);
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String sql = "DROP TABLE IF EXISTS people";
-        db.execSQL(sql);
-        onCreate(db);
-    }
-
     public void insert(People people){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = getContentValues(people);
         db.insert("people", null, values);
     }
 
     public void update (People people){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = getContentValues(people);
         String[] args = {String.valueOf(people.getId())};
         db.update("people", values, "WHERE id = ?",args);
     }
 
     public void delete (People people){
-        SQLiteDatabase db = getWritableDatabase();
+        SQLiteDatabase db = helper.getWritableDatabase();
         String[] args = {String.valueOf(people.getId())};
         db.delete("people", "WHERE id = ?", args);
     }
@@ -83,17 +59,17 @@ public class PeopleDAO extends SQLiteOpenHelper {
         values.put("birthYear", people.getBirthYear());
         values.put("gender", people.getGender());
         values.put("homeworld", people.getHomeworld());
-        //values.put("films", people.getFilms());
-        //values.put("species", people.getSpecies());
-        //values.put("vehicles", people.getVehicles());
-        //values.put("starships", people.getStarships());
+        values.put("films", new Gson().toJson(people.getFilms()));
+        values.put("species", new Gson().toJson(people.getSpecies()));
+        values.put("vehicles", new Gson().toJson(people.getVehicles()));
+        values.put("starships", new Gson().toJson(people.getStarships()));
         values.put("created", people.getCreated());
         values.put("edited", people.getEdited());
         return values;
     }
 
     public People getPeopleByUrl(String url) {
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         People people = null;
         String sql = "SELECT * FROM people WHERE url = ?";
         String[] args = {url};
@@ -107,7 +83,7 @@ public class PeopleDAO extends SQLiteOpenHelper {
     }
 
     public List<People> getList(){
-        SQLiteDatabase db = getReadableDatabase();
+        SQLiteDatabase db = helper.getReadableDatabase();
         String sql = "SELECT * FROM people;";
         Cursor cursor = db.rawQuery(sql, null);
         cursor.moveToFirst();
@@ -133,10 +109,10 @@ public class PeopleDAO extends SQLiteOpenHelper {
         people.setBirthYear(cursor.getString(cursor.getColumnIndex("birthYear")));
         people.setGender(cursor.getString(cursor.getColumnIndex("gender")));
         people.setHomeworld(cursor.getString(cursor.getColumnIndex("homeworld")));
-        //people.setFilms(cursor.getString(cursor.getColumnIndex("films")));
-        //people.setSpecies(cursor.getString(cursor.getColumnIndex("species")));
-        //people.setVehicles(cursor.getString(cursor.getColumnIndex("vehicles")));
-        //people.setStarships(cursor.getString(cursor.getColumnIndex("starships")));
+        people.setFilms(new Gson().fromJson(cursor.getString(cursor.getColumnIndex("films")),List.class));
+        people.setSpecies(new Gson().fromJson(cursor.getString(cursor.getColumnIndex("species")),List.class));
+        people.setVehicles(new Gson().fromJson(cursor.getString(cursor.getColumnIndex("vehicles")),List.class));
+        people.setStarships(new Gson().fromJson(cursor.getString(cursor.getColumnIndex("starships")),List.class));
         people.setCreated(cursor.getString(cursor.getColumnIndex("created")));
         people.setEdited(cursor.getString(cursor.getColumnIndex("edited")));
         return people;

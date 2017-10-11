@@ -1,5 +1,7 @@
 package br.com.test.lastjedi.retrofit;
 
+import br.com.test.lastjedi.services.FilmsService;
+import br.com.test.lastjedi.services.MovieService;
 import br.com.test.lastjedi.services.PeopleService;
 import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
@@ -22,5 +24,9 @@ public class RetrofitInitializer {
     public PeopleService getPeopleService() {
         return retrofit.create(PeopleService.class);
     }
+
+    public FilmsService getFilmsService() { return  retrofit.create(FilmsService.class); }
+
+    public MovieService getMovieService() { return  retrofit.create(MovieService.class); }
 
 }

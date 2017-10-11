@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import br.com.test.lastjedi.holder.PeopleListViewHolder;
-import br.com.test.lastjedi.listener.PeopleListViewListener;
+import br.com.test.lastjedi.listener.RecyclerViewListener;
 import br.com.test.lastjedi.model.People;
 
 /**
@@ -21,7 +21,7 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListViewHolder
     private final Context context;
     private final List<People> list;
     private final int resource;
-    private PeopleListViewListener listener;
+    private RecyclerViewListener listener;
 
     public PeopleListAdapter(Context context, List<People> list, int resource){
         this.context = context;
@@ -47,7 +47,7 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListViewHolder
         return list.size();
     }
 
-    public void setOnItemClickListener(PeopleListViewListener listener) {
+    public void setOnItemClickListener(RecyclerViewListener listener) {
         this.listener = listener;
     }
 }

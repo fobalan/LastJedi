@@ -3,6 +3,7 @@ package br.com.test.lastjedi.holder;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -14,16 +15,16 @@ import br.com.test.lastjedi.listener.RecyclerViewListener;
  * Created by Samurai on 05/10/2017.
  */
 
-public class PeopleListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    private final MaterialEditText nameEditText;
-    private final MaterialEditText urlEditText;
+public class FilmsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private final TextView titleFilmTextView;
+    private final ImageView imageFilmImageView;
     private RecyclerViewListener listener;
-    public PeopleListViewHolder(View itemView, RecyclerViewListener listener, Context context) {
+    public FilmsHolder(View itemView, RecyclerViewListener listener, Context context) {
         super(itemView);
         this.listener = listener;
 
-        nameEditText = (MaterialEditText)itemView.findViewById(R.id.nameEditText);
-        urlEditText = (MaterialEditText) itemView.findViewById(R.id.urlEditText);
+        imageFilmImageView = (ImageView)itemView.findViewById(R.id.imageFilmImageView);
+        titleFilmTextView = (TextView) itemView.findViewById(R.id.titleFilmTextView);
 
         itemView.setOnClickListener(this);
     }
@@ -35,11 +36,11 @@ public class PeopleListViewHolder extends RecyclerView.ViewHolder implements Vie
         }
     }
 
-    public MaterialEditText getName() {
-        return nameEditText;
+    public ImageView getImage() {
+        return imageFilmImageView;
     }
 
-    public MaterialEditText getUrl() {
-        return urlEditText;
+    public TextView getTitle() {
+        return titleFilmTextView;
     }
 }
