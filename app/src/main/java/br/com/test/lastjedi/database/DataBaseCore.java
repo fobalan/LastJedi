@@ -41,7 +41,8 @@ public class DataBaseCore extends SQLiteOpenHelper {
                 "openingCrawl TEXT," +
                 "releaseDate TEXT," +
                 "url TEXT," +
-                "imageUrl TEXT);" );
+                "imageUrl TEXT," +
+                "hamePage TEXT);" );
     }
 
     @Override

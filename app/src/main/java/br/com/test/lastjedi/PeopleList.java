@@ -3,6 +3,7 @@ package br.com.test.lastjedi;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -70,6 +71,9 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
 
     private void onActionBar() {
         setSupportActionBar(peopleListHelper.getToolbar());
+        if(getSupportActionBar() != null){
+            peopleListHelper.getToolbar().setTitleTextColor(Color.WHITE);
+        }
     }
 
     private void onConfigureRyclerView() {

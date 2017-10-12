@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import br.com.test.lastjedi.adapter.DetailsPagerAdapter;
 import br.com.test.lastjedi.model.People;
@@ -27,7 +28,11 @@ public class DetailsActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.detailToolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitle(people.getName());
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(people.getName());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
         detailsPagerAdapter = new DetailsPagerAdapter(getSupportFragmentManager(),people);
 
         // Set up the ViewPager with the sections adapter.
@@ -36,5 +41,15 @@ public class DetailsActivity extends AppCompatActivity {
 
         TabLayout detailTabLayout = (TabLayout) findViewById(R.id.detailTabLayout);
         detailTabLayout.setupWithViewPager(detailViewPager);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -18,6 +18,7 @@ import br.com.test.lastjedi.listener.RecyclerViewListener;
 public class FilmsHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private final TextView titleFilmTextView;
     private final ImageView imageFilmImageView;
+    private final TextView descriptionFilmTextView;
     private RecyclerViewListener listener;
     public FilmsHolder(View itemView, RecyclerViewListener listener, Context context) {
         super(itemView);
@@ -25,6 +26,7 @@ public class FilmsHolder extends RecyclerView.ViewHolder implements View.OnClick
 
         imageFilmImageView = (ImageView)itemView.findViewById(R.id.imageFilmImageView);
         titleFilmTextView = (TextView) itemView.findViewById(R.id.titleFilmTextView);
+        descriptionFilmTextView = (TextView) itemView.findViewById(R.id.descriptionFilmTextView);
 
         itemView.setOnClickListener(this);
     }
@@ -42,5 +44,9 @@ public class FilmsHolder extends RecyclerView.ViewHolder implements View.OnClick
 
     public TextView getTitle() {
         return titleFilmTextView;
+    }
+
+    public TextView getDescription(){
+        return descriptionFilmTextView;
     }
 }

@@ -10,6 +10,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MovieResult {
 
+    @JsonProperty("id")
+    private int id;
+
     @JsonProperty("title")
     private String title;
 
@@ -22,5 +25,9 @@ public class MovieResult {
 
     public String getPosterPath() {
         return posterPath;
+    }
+
+    public int getId() {
+        return id;
     }
 }

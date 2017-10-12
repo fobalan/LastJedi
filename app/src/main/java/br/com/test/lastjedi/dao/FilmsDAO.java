@@ -35,13 +35,13 @@ public class FilmsDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = getContentValues(films);
         String[] args = {String.valueOf(films.getId())};
-        db.update("films", values, "WHERE id = ?",args);
+        db.update("films", values, "id = ?",args);
     }
 
     public void delete (Films films){
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] args = {String.valueOf(films.getId())};
-        db.delete("films", "WHERE id = ?", args);
+        db.delete("films", "id = ?", args);
     }
 
     private ContentValues getContentValues(Films films) {
@@ -52,6 +52,7 @@ public class FilmsDAO {
         values.put("releaseDate", films.getReleaseDate());
         values.put("url", films.getUrl());
         values.put("imageUrl", films.getImageUrl());
+        values.put("homePage", films.getHomePage());
         return values;
     }
 
@@ -92,6 +93,7 @@ public class FilmsDAO {
         films.setReleaseDate(cursor.getString(cursor.getColumnIndex("releaseDate")));
         films.setUrl(cursor.getString(cursor.getColumnIndex("url")));
         films.setImageUrl(cursor.getString(cursor.getColumnIndex("imageUrl")));
+        films.setHomePage(cursor.getString(cursor.getColumnIndex("homePage")));
         return films;
     }
 

@@ -1,46 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/nameTextInput"
-        android:layout_width="0dp"
+
+    <ImageView
+        android:id="@+id/characterImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_dath_vader"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/nameTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginTop="16dp"
+        android:text="Name"
+        app:layout_constraintLeft_toRightOf="@+id/characterImageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/nameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="Name"
-            app:met_hideUnderline="true"/>
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/urlTextInput"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/urlTextView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintTop_toBottomOf="@+id/nameTextInput">
-
-        <com.rengwuxian.materialedittext.MaterialEditText
-            android:id="@+id/urlEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:hint="Url"/>
-    </android.support.design.widget.TextInputLayout>
+        android:text="Url"
+        app:layout_constraintLeft_toRightOf="@+id/characterImageView"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,8 @@
 package br.com.test.lastjedi.retrofit;
 
+import br.com.test.lastjedi.model.MovieDetails;
 import br.com.test.lastjedi.services.FilmsService;
+import br.com.test.lastjedi.services.MovieDetailService;
 import br.com.test.lastjedi.services.MovieService;
 import br.com.test.lastjedi.services.PeopleService;
 import retrofit2.Retrofit;
@@ -29,4 +31,7 @@ public class RetrofitInitializer {
 
     public MovieService getMovieService() { return  retrofit.create(MovieService.class); }
 
+    public MovieDetailService getHomePageService() {
+        return retrofit.create(MovieDetailService.class);
+    }
 }

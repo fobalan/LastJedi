@@ -1,9 +1,11 @@
 package br.com.test.lastjedi.adapter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,9 @@ import com.squareup.picasso.Target;
 
 import java.util.List;
 
+import br.com.test.lastjedi.DetailsActivity;
 import br.com.test.lastjedi.R;
+import br.com.test.lastjedi.fragment.DetailFragment;
 import br.com.test.lastjedi.holder.FilmsHolder;
 import br.com.test.lastjedi.listener.RecyclerViewListener;
 import br.com.test.lastjedi.model.Films;
@@ -44,11 +48,12 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsHolder> {
     }
 
     @Override
-    public void onBindViewHolder(final FilmsHolder holder, int position) {
+    public void onBindViewHolder(final FilmsHolder holder, final int position) {
         holder.getTitle().setText(list.get(position).getTitle());
+        holder.getDescription().setText(list.get(position).getOpeningCrawl());
         Picasso.with(context)
                 .load(list.get(position).getImageUrl())
-                .placeholder(R.drawable.met_ic_clear)
+                .placeholder(R.drawable.image_background)
                 .into(new Target() {
                     @Override
                     public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -58,7 +63,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsHolder> {
 
                     @Override
                     public void onBitmapFailed(Drawable errorDrawable) {
-
+                        Log.e("error", errorDrawable.toString());
                     }
 
                     @Override

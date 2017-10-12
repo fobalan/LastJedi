@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import br.com.test.lastjedi.holder.PeopleListViewHolder;
+import br.com.test.lastjedi.holder.PeopleHolder;
 import br.com.test.lastjedi.listener.RecyclerViewListener;
 import br.com.test.lastjedi.model.People;
 
@@ -16,7 +16,7 @@ import br.com.test.lastjedi.model.People;
  * Created by Samurai on 05/10/2017.
  */
 
-public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListViewHolder> {
+public class PeopleListAdapter extends RecyclerView.Adapter<PeopleHolder> {
 
     private final Context context;
     private final List<People> list;
@@ -29,15 +29,15 @@ public class PeopleListAdapter extends RecyclerView.Adapter<PeopleListViewHolder
         this.resource = resource;
     }
     @Override
-    public PeopleListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PeopleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(resource, parent, false);
-        PeopleListViewHolder viewHolder = new PeopleListViewHolder(view,listener,context);
+        PeopleHolder viewHolder = new PeopleHolder(view,listener,context);
         return viewHolder;
     }
 
     @Override
-    public void onBindViewHolder(PeopleListViewHolder holder, int position) {
+    public void onBindViewHolder(PeopleHolder holder, int position) {
         holder.getName().setText(list.get(position).getName());
         holder.getUrl().setText(list.get(position).getUrl());
     }

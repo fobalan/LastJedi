@@ -38,13 +38,13 @@ public class PeopleDAO {
         SQLiteDatabase db = helper.getWritableDatabase();
         ContentValues values = getContentValues(people);
         String[] args = {String.valueOf(people.getId())};
-        db.update("people", values, "WHERE id = ?",args);
+        db.update("people", values, "id = ?",args);
     }
 
     public void delete (People people){
         SQLiteDatabase db = helper.getWritableDatabase();
         String[] args = {String.valueOf(people.getId())};
-        db.delete("people", "WHERE id = ?", args);
+        db.delete("people", "id = ?", args);
     }
 
     private ContentValues getContentValues(People people) {

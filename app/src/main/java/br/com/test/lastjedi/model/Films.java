@@ -29,6 +29,8 @@ public class Films {
 
     private String imageUrl;
 
+    private String homePage;
+
     public int getId() {
         return id;
     }
@@ -55,6 +57,10 @@ public class Films {
 
     public String getImageUrl() {
         return imageUrl;
+    }
+
+    public String getHomePage(){
+        return homePage;
     }
 
     public void setId(int id) {
@@ -84,5 +90,7 @@ public class Films {
     public void setImageUrl(String imageUrl){
         this.imageUrl = imageUrl;
     }
+
+    public void setHomePage(String homePage) { this.homePage = homePage; }
 
 }
