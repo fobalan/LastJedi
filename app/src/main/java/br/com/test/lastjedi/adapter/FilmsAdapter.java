@@ -54,23 +54,7 @@ public class FilmsAdapter extends RecyclerView.Adapter<FilmsHolder> {
         Picasso.with(context)
                 .load(list.get(position).getImageUrl())
                 .placeholder(R.drawable.image_background)
-                .into(new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        Bitmap bitmapScaled = Bitmap.createScaledBitmap(bitmap, 360, 360, false);
-                        holder.getImage().setImageBitmap(bitmapScaled);
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Drawable errorDrawable) {
-                        Log.e("error", errorDrawable.toString());
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                        holder.getImage().setImageDrawable(placeHolderDrawable);
-                    }
-                });
+                .into(holder.getImage());
     }
 
     @Override

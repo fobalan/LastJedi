@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import br.com.test.lastjedi.fragment.DetailFragment;
 import br.com.test.lastjedi.fragment.FilmsFragment;
+import br.com.test.lastjedi.fragment.MapFragment;
 import br.com.test.lastjedi.model.People;
 
 /**
@@ -31,6 +32,9 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment = new FilmsFragment();
                 break;
+            case 2:
+                fragment = new MapFragment();
+                break;
         }
         Bundle bundle = new Bundle();
         bundle.putSerializable("people",people);
@@ -40,7 +44,7 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
@@ -50,6 +54,8 @@ public class DetailsPagerAdapter extends FragmentPagerAdapter {
                 return "Detalhes";
             case 1:
                 return "Filmes";
+            case 2:
+                return "Mapa";
         }
         return null;
     }

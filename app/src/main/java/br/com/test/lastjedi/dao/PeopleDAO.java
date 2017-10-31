@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.JsonWriter;
+import android.view.ViewAnimationUtils;
 
 import com.google.gson.Gson;
 
@@ -65,6 +66,8 @@ public class PeopleDAO {
         values.put("starships", new Gson().toJson(people.getStarships()));
         values.put("created", people.getCreated());
         values.put("edited", people.getEdited());
+        values.put("latitude", people.getLatitude());
+        values.put("longitude", people.getLongitude());
         return values;
     }
 

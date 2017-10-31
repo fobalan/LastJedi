@@ -1,9 +1,14 @@
 package br.com.test.lastjedi;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -53,7 +58,7 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
     }
 
     private void onLoadList(List<People> peopleList) {
-        for (People people: peopleList) {
+        for (People people : peopleList) {
             list.add(people);
             adapter.notifyItemInserted(list.size() - 1);
         }
@@ -71,7 +76,7 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
 
     private void onActionBar() {
         setSupportActionBar(peopleListHelper.getToolbar());
-        if(getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             peopleListHelper.getToolbar().setTitleTextColor(Color.WHITE);
         }
     }
@@ -92,15 +97,21 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
     @Override
     public void onViewClick(View v, int position) {
         Intent intent = new Intent(this, DetailsActivity.class);
-        intent.putExtra("people",list.get(position));
+        intent.putExtra("people", list.get(position));
         startActivity(intent);
     }
 
     @Override
     public void onClick(View v) {
-        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA}, PERMISSION_REQUEST);
-        }else{
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                || ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+            }, PERMISSION_REQUEST);
+        } else {
             onCallScanner();
         }
     }
@@ -108,8 +119,10 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == PERMISSION_REQUEST
-                && grantResults[0] == 0){
+        if (requestCode == PERMISSION_REQUEST
+                && grantResults[0] == 0
+                && grantResults[1] == 0
+                && grantResults[2] == 0) {
             onCallScanner();
         }
     }
@@ -128,16 +141,26 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
+        if (result != null) {
+            if (result.getContents() == null) {
                 Toast.makeText(this, "Cancelado", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, "QR Code capturado com sucesso", Toast.LENGTH_LONG).show();
                 onAddNewCharacter(result.getContents());
+
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void onGetLatLng(People newPeople) {
+
+        LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        @SuppressLint("MissingPermission")
+        Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        newPeople.setLatitude(location.getLatitude());
+        newPeople.setLongitude(location.getLongitude());
     }
 
     private void onAddNewCharacter(String characterUrl) {
@@ -152,6 +175,7 @@ public class PeopleList extends AppCompatActivity implements RecyclerViewListene
                 if(peopleDAO.checkIfExists(newPeople)) {
                     Toast.makeText(getApplicationContext(), "Você já possui esse porsonagem", Toast.LENGTH_SHORT).show();
                 } else {
+                    onGetLatLng(newPeople);
                     onLoadList(newPeople);
                     peopleDAO.insert(newPeople);
                 }

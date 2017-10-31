@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DataBaseCore extends SQLiteOpenHelper {
     public DataBaseCore(Context context) {
-        super(context, "LastJedi.sqlite", null, 1);
+        super(context, "LastJedi.sqlite", null, 2);
     }
 
     @Override
@@ -32,7 +32,9 @@ public class DataBaseCore extends SQLiteOpenHelper {
                 "vehicles TEXT," +
                 "starships TEXT," +
                 "created TEXT," +
-                "edited TEXT); ");
+                "edited TEXT" +
+                "latitude FLOAT," +
+                "longitude FLOAT); ");
 
         db.execSQL("CREATE TABLE films (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +

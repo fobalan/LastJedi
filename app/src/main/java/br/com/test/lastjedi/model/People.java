@@ -62,6 +62,10 @@ public class People implements Serializable {
         @JsonProperty("url")
         private String url;
 
+        private double latitude;
+
+        private double longitude;
+
     public int getId() {
         return id;
     }
@@ -127,6 +131,14 @@ public class People implements Serializable {
 
     public String getUrl() {
         return url;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
     }
 
     public void setId(int id) {
@@ -197,4 +209,11 @@ public class People implements Serializable {
         this.url = url;
     }
 
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
 }

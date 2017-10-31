@@ -16,6 +16,7 @@ import java.util.List;
 
 import br.com.test.lastjedi.R;
 import br.com.test.lastjedi.adapter.FilmsAdapter;
+import br.com.test.lastjedi.constants.Constantes;
 import br.com.test.lastjedi.dao.FilmsDAO;
 import br.com.test.lastjedi.helper.FilmsHelper;
 import br.com.test.lastjedi.listener.RecyclerViewListener;
@@ -82,14 +83,14 @@ public class FilmsFragment extends Fragment implements RecyclerViewListener {
     }
 
     private void getImageUrlFromService(final Films newFilm) {
-        Call<Movie> call = new RetrofitInitializer("https://api.themoviedb.org/")
+        Call<Movie> call = new RetrofitInitializer(Constantes.THE_MOVIEDB_API)
                 .getMovieService()
-                .getMovie("331a18bda3c37db737b76e221c67bda1",newFilm.getTitle());
+                .getMovie(Constantes.THE_MOVIEDB_API_KEY,newFilm.getTitle());
         call.enqueue(new Callback<Movie>() {
             @Override
             public void onResponse(Call<Movie> call, Response<Movie> response) {
                 Movie movie = response.body();
-                newFilm.setImageUrl("https://image.tmdb.org/t/p/w500/" + movie.getMovieResult().get(0).getPosterPath());
+                newFilm.setImageUrl(Constantes.IMAGE_URL_SUFIX + movie.getMovieResult().get(0).getPosterPath());
                 getHomePageById(movie.getMovieResult().get(0).getId(), newFilm);
             }
 
@@ -102,9 +103,9 @@ public class FilmsFragment extends Fragment implements RecyclerViewListener {
     }
 
     private void getHomePageById(int idMovie, final Films newFilm) {
-        Call<MovieDetails> call = new RetrofitInitializer("https://api.themoviedb.org/")
+        Call<MovieDetails> call = new RetrofitInitializer(Constantes.THE_MOVIEDB_API)
                 .getHomePageService()
-                .getHomePage(idMovie,"331a18bda3c37db737b76e221c67bda1");
+                .getHomePage(idMovie,Constantes.THE_MOVIEDB_API_KEY);
         call.enqueue(new Callback<MovieDetails>() {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
